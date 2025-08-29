@@ -11,6 +11,7 @@
     background: linear-gradient(to bottom, #f9f0f0, #fde2e4);
     color: #333;
     position: relative;
+    overflow-x: hidden;
   }
 
   body::before {
@@ -116,55 +117,36 @@
     font-weight: bold;
   }
 
-  /* ====== CHAT SAMIRA ====== */
-  #chat-toggle {
+  /* 🌸 Chat Samira */
+  #chat-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: pink;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 9999;
-  }
-
-  #chat-box {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 300px;
-    max-height: 400px;
-    background: #ffe6f2;
-    border: 2px solid #ffb6c1;
+    width: 280px;
+    background: #ffe4ec;
+    border: 2px solid #f48fb1;
     border-radius: 15px;
-    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    z-index: 9999;
-    background-image: url('https://i.ibb.co/dg3H2Wy/flowers.png');
-    background-size: 80px;
-    background-repeat: repeat;
+    font-size: 14px;
+    z-index: 10;
   }
 
   #chat-header {
-    background: #ffb6c1;
+    background: #f48fb1;
     color: white;
     padding: 10px;
+    border-radius: 13px 13px 0 0;
     text-align: center;
     font-weight: bold;
-    font-size: 16px;
   }
 
   #chat-messages {
     flex: 1;
     padding: 10px;
     overflow-y: auto;
-    font-size: 14px;
+    max-height: 200px;
   }
 
   .message {
@@ -172,39 +154,54 @@
     padding: 8px 12px;
     border-radius: 12px;
     max-width: 80%;
-    line-height: 1.3;
+    clear: both;
   }
 
   .user {
-    background: #ffd6e7;
-    align-self: flex-end;
-    text-align: right;
+    background: #e1f5fe;
+    float: right;
   }
 
   .samira {
-    background: #fff0f5;
-    align-self: flex-start;
-    text-align: left;
-  }
-
-  #chat-input-area {
-    display: flex;
-    border-top: 1px solid #ffb6c1;
+    background: #f8bbd0;
+    float: left;
   }
 
   #chat-input {
+    display: flex;
+    border-top: 1px solid #f48fb1;
+  }
+
+  #chat-input input {
     flex: 1;
     border: none;
     padding: 10px;
-    font-size: 14px;
+    border-radius: 0 0 0 13px;
   }
 
-  #chat-send {
-    background: #ff69b4;
+  #chat-input button {
+    background: #f48fb1;
     border: none;
-    color: white;
     padding: 10px 15px;
     cursor: pointer;
+    border-radius: 0 0 13px 0;
+    color: white;
+    font-weight: bold;
+  }
+
+  /* 🌹 Pétalas */
+  .petala {
+    position: fixed;
+    top: -50px;
+    z-index: 0;
+    animation-name: cair;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes cair {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
   }
 </style>
 </head>
@@ -254,14 +251,13 @@
 
 <audio id="musica" src=""></audio>
 
-<!-- ===== CHAT SAMIRA ===== -->
-<button id="chat-toggle">💬 Samira</button>
-<div id="chat-box">
-  <div id="chat-header">🌸 Chat com Samira 🌸</div>
+<!-- 🌸 Chat da Samira -->
+<div id="chat-container">
+  <div id="chat-header">💖 Chat da Samira 💖</div>
   <div id="chat-messages"></div>
-  <div id="chat-input-area">
-    <input type="text" id="chat-input" placeholder="Escreva com amorzinho...">
-    <button id="chat-send">➤</button>
+  <div id="chat-input">
+    <input type="text" id="user-input" placeholder="Escreva uma mensagem...">
+    <button onclick="sendMessage()">➤</button>
   </div>
 </div>
 
@@ -287,60 +283,52 @@
 
   mostrarSecao('profissao'); // seção inicial
 
-  // ====== CHAT SAMIRA ======
-  const toggleBtn = document.getElementById("chat-toggle");
-  const chatBox = document.getElementById("chat-box");
-  const chatMessages = document.getElementById("chat-messages");
-  const chatInput = document.getElementById("chat-input");
-  const chatSend = document.getElementById("chat-send");
+  // 🌸 Chat da Samira
+  function sendMessage() {
+    const input = document.getElementById("user-input");
+    const msg = input.value.trim();
+    if (!msg) return;
+    addMessage(msg, "user");
+    input.value = "";
 
-  toggleBtn.addEventListener("click", () => {
-    chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
-  });
-
-  const respostas = [
-    "Oi, docinho 💕 como você está?",
-    "Que alegria falar com você 🌸",
-    "Você é muito especial ✨",
-    "Adoro quando você vem conversar comigo 💖",
-    "Seu jeitinho é tão encantador 🌷"
-  ];
-
-  function adicionarMensagem(texto, classe) {
-    const msg = document.createElement("div");
-    msg.classList.add("message", classe);
-    msg.innerText = texto;
-    chatMessages.appendChild(msg);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  function respostaSamira() {
-    const resposta = respostas[Math.floor(Math.random() * respostas.length)];
     setTimeout(() => {
-      adicionarMensagem("Samira: " + resposta, "samira");
-    }, 700);
+      const respostas = [
+        "Que coisa mais fofa você me dizer isso 💕",
+        "Ain, adorei sua mensagem 🌸",
+        "Você é muito especial para mim ✨",
+        "Obrigada pelo carinho, você é incrível 💖",
+        "Seu jeitinho me deixa sorrindo 😍"
+      ];
+      const resposta = respostas[Math.floor(Math.random() * respostas.length)];
+      addMessage(resposta, "samira");
+    }, 800);
   }
 
-  function enviarMensagem() {
-    const texto = chatInput.value.trim();
-    if (texto !== "") {
-      adicionarMensagem("Você: " + texto, "user");
-      chatInput.value = "";
-      respostaSamira();
-    }
+  function addMessage(text, sender) {
+    const messages = document.getElementById("chat-messages");
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("message", sender);
+    msgDiv.textContent = text;
+    messages.appendChild(msgDiv);
+    messages.scrollTop = messages.scrollHeight;
   }
 
-  chatSend.addEventListener("click", enviarMensagem);
-  chatInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") enviarMensagem();
-  });
+  // 🌹 Pétalas caindo
+  const numPetalas = 20;
+  for (let i = 0; i < numPetalas; i++) {
+    let petala = document.createElement("div");
+    petala.innerHTML = "🌸";
+    petala.classList.add("petala");
+    petala.style.left = Math.random() * 100 + "vw";
+    petala.style.animationDuration = (5 + Math.random() * 5) + "s";
+    petala.style.fontSize = Math.random() * 24 + 20 + "px";
+    petala.style.opacity = Math.random();
+    petala.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(petala);
+  }
 </script>
 
 </body>
 </html>
-
-
-
-
 
 
