@@ -40,6 +40,20 @@
     margin-left: 10px;
   }
 
+  /* Frases fofas e contador */
+  #fraseSamira, #contador {
+    text-align: center;
+    margin: 10px auto;
+    font-size: 18px;
+    color: #e76f51;
+    font-weight: bold;
+    background: #fff0f5;
+    padding: 10px 15px;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
   nav {
     display: flex;
     justify-content: center;
@@ -117,7 +131,7 @@
     font-weight: bold;
   }
 
-  /* 🌸 Chat Samira */
+  /* Chat Samira */
   #chat-container {
     position: fixed;
     bottom: 20px;
@@ -189,7 +203,7 @@
     font-weight: bold;
   }
 
-  /* 🌹 Pétalas */
+  /* Pétalas caindo */
   .petala {
     position: fixed;
     top: -50px;
@@ -197,11 +211,27 @@
     animation-name: cair;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+    pointer-events: none;
   }
 
   @keyframes cair {
     0% { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(100vh) rotate(360deg); }
+  }
+
+  /* Botão som ambiente */
+  #somBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #f48fb1;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
 </style>
 </head>
@@ -210,6 +240,12 @@
 <header>
   Samira — Natural do Gama
 </header>
+
+<!-- Frase carinhosa -->
+<div style="text-align:center;">
+  <div id="fraseSamira"></div>
+  <div id="contador"></div>
+</div>
 
 <nav>
   <button onclick="mostrarSecao('profissao')">Profissão</button>
@@ -251,7 +287,7 @@
 
 <audio id="musica" src=""></audio>
 
-<!-- 🌸 Chat da Samira -->
+<!-- Chat Samira -->
 <div id="chat-container">
   <div id="chat-header">💖 Chat da Samira 💖</div>
   <div id="chat-messages"></div>
@@ -261,7 +297,13 @@
   </div>
 </div>
 
+<!-- Botão Som -->
+<button id="somBtn" onclick="toggleSom()">🔊 Som Ambiente</button>
+<audio id="somAmbiente" src="som-ambiente.mp3" loop></audio>
+
 <script>
+  mostrarSecao('profissao');
+
   function mostrarSecao(secaoId) {
     document.querySelectorAll('section').forEach(sec => {
       sec.classList.remove('active');
@@ -281,9 +323,23 @@
     audio.currentTime = 0;
   }
 
-  mostrarSecao('profissao'); // seção inicial
+  // Frases carinhosas
+  const frases = [
+    "Oi florzinha, que bom que você veio me visitar 🌸",
+    "Espero que seu dia esteja tão lindo quanto você ✨",
+    "Você é muito especial para mim 💖",
+    "Receba daqui um abraço bem apertado 🤗",
+    "Hoje o mundo ficou mais bonito só porque você apareceu 🌹"
+  ];
+  document.getElementById("fraseSamira").innerText = frases[Math.floor(Math.random() * frases.length)];
 
-  // 🌸 Chat da Samira
+  // Contador de visitas
+  let visitas = localStorage.getItem("visitas") || 0;
+  visitas++;
+  localStorage.setItem("visitas", visitas);
+  document.getElementById("contador").innerText = `Você é o visitante número ${visitas}! 💕`;
+
+  // Chat Samira
   function sendMessage() {
     const input = document.getElementById("user-input");
     const msg = input.value.trim();
@@ -299,8 +355,7 @@
         "Obrigada pelo carinho, você é incrível 💖",
         "Seu jeitinho me deixa sorrindo 😍"
       ];
-      const resposta = respostas[Math.floor(Math.random() * respostas.length)];
-      addMessage(resposta, "samira");
+      addMessage(respostas[Math.floor(Math.random() * respostas.length)], "samira");
     }, 800);
   }
 
@@ -313,22 +368,41 @@
     messages.scrollTop = messages.scrollHeight;
   }
 
-  // 🌹 Pétalas caindo
-  const numPetalas = 20;
+  // Pétalas caindo
+  const numPetalas = 25;
   for (let i = 0; i < numPetalas; i++) {
-    let petala = document.createElement("div");
-    petala.innerHTML = "🌸";
+    const petala = document.createElement("div");
     petala.classList.add("petala");
+    petala.innerHTML = "🌸";
     petala.style.left = Math.random() * 100 + "vw";
-    petala.style.animationDuration = (5 + Math.random() * 5) + "s";
     petala.style.fontSize = Math.random() * 24 + 20 + "px";
     petala.style.opacity = Math.random();
+    petala.style.animationDuration = (5 + Math.random() * 5) + "s";
     petala.style.animationDelay = Math.random() * 5 + "s";
     document.body.appendChild(petala);
+  }
+
+  // Som ambiente
+  const somAmbiente = document.getElementById("somAmbiente");
+  let tocando = false;
+  function toggleSom() {
+    if (tocando) {
+      somAmbiente.pause();
+      tocando = false;
+      document.getElementById("somBtn").innerText = "🔊 Som Ambiente";
+    } else {
+      somAmbiente.play();
+      tocando = true;
+      document.getElementById("somBtn").innerText = "🔈 Pausar Som";
+    }
   }
 </script>
 
 </body>
 </html>
+
+
+
+
 
 
