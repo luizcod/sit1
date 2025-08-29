@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samira — Eleita a mais bonita do DF</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: linear-gradient(to bottom, #d4edda, #a1d99b);
+        color: #155724;
+        text-align: center;
+    }
+    h1 {
+        color: #155724;
+        margin-top: 30px;
+    }
+    p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+    .card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        padding: 10px;
+        transition: transform 0.3s;
+        cursor: pointer;
+        position: relative;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .card img {
+        width: 250px;
+        height: auto;
+        border-radius: 10px;
+    }
+    .caption {
+        margin-top: 8px;
+        font-size: 16px;
+        color: #155724;
+    }
+</style>
+</head>
+<body>
+<h1>Samira — Momentos especiais</h1>
+<p>Acesse fotos e ouça música passando o mouse sobre cada imagem</p>
+
+<div class="gallery">
+    <div class="card" onmouseenter="playAudio('edenAudio')" onmouseleave="pauseAudio('edenAudio')">
+        <img src="eden.jpg" alt="Samira no Eden">
+        <div class="caption">Aqui ela está no Eden do Cerrado</div>
+        <audio id="edenAudio" src="marley.mp3"></audio>
+    </div>
+
+    <div class="card" onmouseenter="playAudio('casaAudio')" onmouseleave="pauseAudio('casaAudio')">
+        <img src="samira.jpg" alt="Samira em casa">
+        <div class="caption">Aqui ela está em casa</div>
+        <audio id="casaAudio" src="samira.mp3"></audio>
+    </div>
+
+    <div class="card" onmouseenter="playAudio('sorrisoAudio')" onmouseleave="pauseAudio('sorrisoAudio')">
+        <img src="niver.jpg" alt="Samira sorrindo">
+        <div class="caption">Aqui ela está sorrindo</div>
+        <audio id="sorrisoAudio" src="sorriso.mp3"></audio>
+    </div>
+</div>
+
+<script>
+function playAudio(id) {
+    var audio = document.getElementById(id);
+    audio.currentTime = 0;
+    audio.play();
+}
+function pauseAudio(id) {
+    var audio = document.getElementById(id);
+    audio.pause();
+    audio.currentTime = 0;
+}
+</script>
+</body>
+</html>
