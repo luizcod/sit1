@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Samira — Natural do Gamas</title>
+<title>Samira — Natural do Gama</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
-    background: linear-gradient(to bottom, #d4edda, #a1d99b);
-    color: #155724;
+    background: linear-gradient(to bottom, #f9f0f0, #fde2e4);
+    color: #333;
     position: relative;
   }
 
@@ -19,19 +19,22 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: url('rosa.png') repeat;
-    opacity: 0.1;
+    opacity: 0.05;
     pointer-events: none;
     z-index: -1;
   }
 
   header {
-    background-color: #2f7a2f;
+    background-color: #e76f51;
     color: white;
-    padding: 15px 20px;
+    padding: 20px;
     text-align: center;
+    font-size: 28px;
+    letter-spacing: 1px;
+    position: relative;
   }
 
-  header h1::after {
+  header::after {
     content: "🌹";
     margin-left: 10px;
   }
@@ -39,28 +42,38 @@
   nav {
     display: flex;
     justify-content: center;
-    background-color: #3fa13f;
+    background-color: #f4a261;
     flex-wrap: wrap;
+    padding: 10px 0;
   }
 
   nav button {
-    background: transparent;
+    background: #e76f51;
     border: none;
     color: white;
     font-size: 16px;
-    padding: 12px 20px;
+    padding: 10px 18px;
+    margin: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
 
   nav button:hover {
-    background-color: #2f7a2f;
+    background: #d65a3f;
+    transform: translateY(-2px);
   }
 
   section {
     display: none;
-    padding: 20px;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 700px;
     text-align: center;
+    border-radius: 15px;
+    background: linear-gradient(to right, #fff0f5, #ffe4e1);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
   }
 
   section.active {
@@ -76,36 +89,129 @@
   }
 
   .card {
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     padding: 10px;
-    transition: transform 0.3s;
     cursor: pointer;
-    position: relative;
+    transition: all 0.4s ease;
+    transform: rotate(0deg);
   }
 
   .card:hover {
-    transform: scale(1.05);
+    transform: rotate(-2deg) scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
   }
 
   .card img {
     width: 250px;
     height: auto;
-    border-radius: 10px;
+    border-radius: 15px;
   }
 
   .caption {
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 16px;
-    color: #155724;
+    color: #e76f51;
+    font-weight: bold;
+  }
+
+  /* ====== CHAT SAMIRA ====== */
+  #chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: pink;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+  }
+
+  #chat-box {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background: #ffe6f2;
+    border: 2px solid #ffb6c1;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    z-index: 9999;
+    background-image: url('https://i.ibb.co/dg3H2Wy/flowers.png');
+    background-size: 80px;
+    background-repeat: repeat;
+  }
+
+  #chat-header {
+    background: #ffb6c1;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  #chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+  }
+
+  .message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 80%;
+    line-height: 1.3;
+  }
+
+  .user {
+    background: #ffd6e7;
+    align-self: flex-end;
+    text-align: right;
+  }
+
+  .samira {
+    background: #fff0f5;
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  #chat-input-area {
+    display: flex;
+    border-top: 1px solid #ffb6c1;
+  }
+
+  #chat-input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #chat-send {
+    background: #ff69b4;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Samira — Natural do Gama</h1>
+  Samira — Natural do Gama
 </header>
 
 <nav>
@@ -121,12 +227,12 @@
 
 <section id="hobbies">
   <h2>Hobbies</h2>
-  <p>Gosta de tirar fotos e se divertir com os amigos.</p>
+  <p>Gosta de viajar e se divertir com os amigos.</p>
 </section>
 
 <section id="series">
   <h2>Séries Favoritas</h2>
-  <p>You, bob esponja.</p>
+  <p>You, Friends</p>
 </section>
 
 <div class="gallery">
@@ -148,6 +254,17 @@
 
 <audio id="musica" src=""></audio>
 
+<!-- ===== CHAT SAMIRA ===== -->
+<button id="chat-toggle">💬 Samira</button>
+<div id="chat-box">
+  <div id="chat-header">🌸 Chat com Samira 🌸</div>
+  <div id="chat-messages"></div>
+  <div id="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Escreva com amorzinho...">
+    <button id="chat-send">➤</button>
+  </div>
+</div>
+
 <script>
   function mostrarSecao(secaoId) {
     document.querySelectorAll('section').forEach(sec => {
@@ -168,12 +285,61 @@
     audio.currentTime = 0;
   }
 
-  // Mostrar a primeira seção por padrão
-  mostrarSecao('profissao');
+  mostrarSecao('profissao'); // seção inicial
+
+  // ====== CHAT SAMIRA ======
+  const toggleBtn = document.getElementById("chat-toggle");
+  const chatBox = document.getElementById("chat-box");
+  const chatMessages = document.getElementById("chat-messages");
+  const chatInput = document.getElementById("chat-input");
+  const chatSend = document.getElementById("chat-send");
+
+  toggleBtn.addEventListener("click", () => {
+    chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+  });
+
+  const respostas = [
+    "Oi, docinho 💕 como você está?",
+    "Que alegria falar com você 🌸",
+    "Você é muito especial ✨",
+    "Adoro quando você vem conversar comigo 💖",
+    "Seu jeitinho é tão encantador 🌷"
+  ];
+
+  function adicionarMensagem(texto, classe) {
+    const msg = document.createElement("div");
+    msg.classList.add("message", classe);
+    msg.innerText = texto;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function respostaSamira() {
+    const resposta = respostas[Math.floor(Math.random() * respostas.length)];
+    setTimeout(() => {
+      adicionarMensagem("Samira: " + resposta, "samira");
+    }, 700);
+  }
+
+  function enviarMensagem() {
+    const texto = chatInput.value.trim();
+    if (texto !== "") {
+      adicionarMensagem("Você: " + texto, "user");
+      chatInput.value = "";
+      respostaSamira();
+    }
+  }
+
+  chatSend.addEventListener("click", enviarMensagem);
+  chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") enviarMensagem();
+  });
 </script>
 
 </body>
 </html>
+
+
 
 
 
