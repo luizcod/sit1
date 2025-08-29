@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Samira — Perfil Completo</title>
+<title>Samira — Natural do Gamas</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -100,71 +100,33 @@
     font-size: 16px;
     color: #155724;
   }
-
-  /* Modal de vídeo */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 10;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-  }
-
-  .modal-content {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 15px;
-    position: relative;
-    max-width: 80%;
-  }
-
-  .modal-content iframe {
-    width: 100%;
-    height: 400px;
-    border: none;
-    border-radius: 10px;
-  }
-
-  .close-btn {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Samira — Perfil Completo</h1>
+  <h1>Samira — Natural do Gama</h1>
 </header>
 
 <nav>
   <button onclick="mostrarSecao('profissao')">Profissão</button>
   <button onclick="mostrarSecao('hobbies')">Hobbies</button>
   <button onclick="mostrarSecao('series')">Séries Favoritas</button>
-  <button onclick="abrirModal('https://www.youtube.com/embed/9g2dN0Gg1lI?autoplay=1')">Peppa Pig</button>
-  <button onclick="abrirModal('https://www.youtube.com/embed/Xh7N9K3fDqA?autoplay=1')">Maycon Kuster</button>
 </nav>
 
 <section id="profissao">
   <h2>Profissão</h2>
-  <p>Samira é engenheira de software e adora criar projetos criativos.</p>
+  <p>Samira ajuda em casa, recebendo uma salario de 23.000 reais.</p>
 </section>
 
 <section id="hobbies">
   <h2>Hobbies</h2>
-  <p>Gosta de skate, fotografia, culinária e viagens para lugares exóticos.</p>
+  <p>Gosta de tirar fotos e se divertir com os amigos.</p>
 </section>
 
 <section id="series">
   <h2>Séries Favoritas</h2>
-  <p>Stranger Things, The Witcher, La Casa de Papel e Friends.</p>
+  <p>You, bob esponja.</p>
 </section>
 
 <div class="gallery">
@@ -186,14 +148,6 @@
 
 <audio id="musica" src=""></audio>
 
-<!-- Modal -->
-<div id="videoModal" class="modal" onclick="fecharModal()">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="close-btn" onclick="fecharModal()">&times;</span>
-    <iframe id="videoFrame" src="" allowfullscreen></iframe>
-  </div>
-</div>
-
 <script>
   function mostrarSecao(secaoId) {
     document.querySelectorAll('section').forEach(sec => {
@@ -212,20 +166,6 @@
     const audio = document.getElementById('musica');
     audio.pause();
     audio.currentTime = 0;
-  }
-
-  function abrirModal(videoUrl) {
-    const modal = document.getElementById('videoModal');
-    const frame = document.getElementById('videoFrame');
-    frame.src = videoUrl;
-    modal.style.display = 'flex';
-  }
-
-  function fecharModal() {
-    const modal = document.getElementById('videoModal');
-    const frame = document.getElementById('videoFrame');
-    frame.src = '';
-    modal.style.display = 'none';
   }
 
   // Mostrar a primeira seção por padrão
